@@ -142,6 +142,7 @@ const app = {
   handleEvents: function () {
     const _this = this;
     const cdWidth = cd.offsetWidth;
+    volBar.value = 100;
 
     // xử lý cd quay, dừng
     const cdThumbAnimate = cdThumb.animate([{ transform: "rotate(360deg)" }], {
@@ -172,7 +173,6 @@ const app = {
     audio.onplay = function () {
       _this.isPlaying = true;
       player.classList.add("playing");
-      volBar.value = 50;
       audio.volume = volBar.value / 100;
       cdThumbAnimate.play();
     };
@@ -256,11 +256,11 @@ const app = {
     };
 
     volIcon.onmousedown = (e) => {
-      if (!_this.isMute) {
+      if (_this.isMute) {
+        audio.volume = volBar.value / 100;
+      } else {
         audio.volume = 0;
         volBar.value = 0;
-      } else {
-        audio.volume = volBar.value / 100;
       }
     };
 
